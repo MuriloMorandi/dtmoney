@@ -1,9 +1,9 @@
-import styled, {createGlobalStyle} from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
     :root{
         --red: #e52e4d;
-        --gren: #
+        --green: #33cc95;
         --blue: #5429cc;
         
 
@@ -35,8 +35,8 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     body {
-        background: val(--background);
-        --webkit-font-smoothing: antialiased;
+        background: var(--background);
+        -webkit-font-smoothing: antialiased;
     }
 
     button {

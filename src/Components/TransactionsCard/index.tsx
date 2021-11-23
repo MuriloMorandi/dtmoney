@@ -2,16 +2,17 @@ import React from 'react';
 import { Container, TableData } from './styles';
 
 interface TypeProps{
+    id?:number;
     amount: number;
     title: string;
-    category: 'Compra' | 'Venda' | 'Investimentos' ;
+    category: string ;
     date: string;
     type?: 'Income' | 'Outcome' ;
 }
 
 export function TransactionsCard(props:TypeProps) {
   return(
-      <Container>
+      <Container key={props.id}>
         <TableData>{props.title}</TableData>
         <TableData type={props.type}>{props.type === 'Outcome' && '-'}R${props.amount}</TableData>
         <TableData>{props.category}</TableData>

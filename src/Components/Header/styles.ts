@@ -1,37 +1,30 @@
 import styled from 'styled-components';
 
 export const Container = styled.header`
-    background-color: var(--blue);
+	background-color: var(--blue);
 `;
 
 export const Content = styled.div`
-    max-width: 1120px;
-    
-    margin: 0 auto;
-    padding: 2rem 1rem 10rem;
+	max-width: 1120px;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+	margin: 0 auto;
+	padding: 2rem 1rem 10rem;
 
-    button{
-        color: #fff;
-        background-color: var(--blue-light);
-        font-size: 1rem;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 
-        padding: 0 2rem;
-        border :0;
-        border-radius: 0.25rem;
-        
-        height: 3rem;
+	button {
+		color: #fff;
+		background-color: var(--blue-light);
+		font-size: 1rem;
 
-        transition: filter 0.2s;
-        &:hover{
-            filter: brightness(0.85);
-        }
-    }
-`
+		padding: 0 2rem;
+		border: 0;
+		border-radius: 0.25rem;
 
-export const Logo = styled.img`
-
+		height: 3rem;
+	}
 `;
+
+export const Logo = styled.img``;

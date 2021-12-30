@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { FormEvent, useState, useContext } from 'react';
 import Modal from 'react-modal';
 
+import { TransactionsContext } from 'Context/TransactionsContext';
 import CloseModalSvg from '../../assets/close.svg';
 import IncomeSvg from '../../assets/income.svg';
 import OutcomeSvg from '../../assets/outcome.svg';
@@ -15,7 +16,34 @@ export function NewTransactionModal({
 	isNewTransactionsModal,
 	handleStateNewTransactionModal,
 }: TypeProps) {
-	const [type, setType] = useState('income');
+	const { CreateTransactions } = useContext(TransactionsContext);
+
+	const [type, setType] = useState('Income');
+	const [title, setTitle] = useState('');
+	const [category, setCategory] = useState('');
+	const [amount, setamount] = useState(0);
+
+	function setDefaultValues() {
+		setType('Income');
+		setTitle('');
+		setCategory('');
+		setamount(0);
+	}
+
+	async function handleCreatNewTransaction(event: FormEvent) {
+		event.preventDefault();
+
+		await CreateTransactions({
+			title,
+			amount,
+			type,
+			category,
+		});
+
+		setDefaultValues();
+		handleStateNewTransactionModal();
+	}
+
 	return (
 		<>
 			<Modal
@@ -31,16 +59,30 @@ export function NewTransactionModal({
 					<img src={CloseModalSvg} alt="Fechar modal" />
 				</button>
 
-				<Container>
+				<Container onSubmit={handleCreatNewTransaction}>
 					<h2>Cadatrar transação</h2>
-					<input placeholder="Título" />
-					<input placeholder="Valor" type="number" />
+
+					<input
+						placeholder="Título"
+						value={title}
+						onChange={(event) => setTitle(event.target.value)}
+					/>
+
+					<input
+						placeholder="Valor"
+						type="number"
+						min="0"
+						value={amount}
+						onChange={(event) =>
+							setamount(Number(event.target.value))
+						}
+					/>
 
 					<TransactionTypeContainer>
 						<RadionButton
 							type="button"
-							onClick={() => setType('income')}
-							isActive={type === 'income'}
+							onClick={() => setType('Income')}
+							isActive={type === 'Income'}
 							ativeColor="green"
 						>
 							<img src={IncomeSvg} alt="Entrada" />
@@ -48,8 +90,8 @@ export function NewTransactionModal({
 						</RadionButton>
 						<RadionButton
 							type="button"
-							onClick={() => setType('outcome')}
-							isActive={type === 'outcome'}
+							onClick={() => setType('Outcome')}
+							isActive={type === 'Outcome'}
 							ativeColor="red"
 						>
 							<img src={OutcomeSvg} alt="Saída" />
@@ -57,7 +99,11 @@ export function NewTransactionModal({
 						</RadionButton>
 					</TransactionTypeContainer>
 
-					<input placeholder="Categoria" />
+					<input
+						placeholder="Categoria"
+						value={category}
+						onChange={(event) => setCategory(event.target.value)}
+					/>
 					<button type="submit">Cadastrar</button>
 				</Container>
 			</Modal>

@@ -1,12 +1,35 @@
-import { Card } from "Components/Card";
-import { Container } from "./styles";
+import { Card } from 'Components/Card';
+import { TransactionsContext } from 'Context/TransactionsContext';
+import { useContext } from 'react';
+import { Container } from './styles';
 
 export function Summary() {
-    return(
-        <Container>
-            <Card type='Income' value={1000.00}/>
-            <Card type='Outcome' value={500.50}/>
-            <Card type='Total' value={500.50}/>
-        </Container>
-    )    
+	const { Transactions } = useContext(TransactionsContext);
+
+	const summary = Transactions.reduce(
+		(acc, transactions) => {
+			if (transactions.type === 'Income') {
+				acc.Income += transactions.amount;
+				acc.Total += transactions.amount;
+			} else if (transactions.type === 'Outcome') {
+				acc.Outcome += transactions.amount;
+				acc.Total -= transactions.amount;
+			}
+			console.log(transactions);
+			return acc;
+		},
+		{
+			Income: 0,
+			Outcome: 0,
+			Total: 0,
+		}
+	);
+
+	return (
+		<Container>
+			<Card type="Income" amount={summary.Income} />
+			<Card type="Outcome" amount={summary.Outcome} />
+			<Card type="Total" amount={summary.Total} />
+		</Container>
+	);
 }

@@ -1,64 +1,67 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { App } from 'App';
-import { createServer, Model } from "miragejs"
+import { createServer, Model } from 'miragejs';
 
 createServer({
-    models:{
-		transaction: Model
+	models: {
+		transaction: Model,
 	},
 
-	seeds(server){
+	seeds(server) {
 		server.db.loadData({
-			transactions:[
+			transactions: [
 				{
-					id:1,
-					title:'Manuteção de website',
+					title: 'Manuteção de website',
 					amount: 600,
-					category:'Venda',
-					date: '18/11/2021',
-					type:'Income'
+					category: 'Venda',
+					date: new Date('11/18/2021').toLocaleDateString(),
+					type: 'Income',
 				},
 				{
-					id:2,
-					title:'Notebook Samsung',
-					amount:6000,
-					category:'Compra',
-					date: '18/11/2021',
-					type:'Outcome'
+					title: 'Notebook Samsung',
+					amount: 6000,
+					category: 'Compra',
+					date: new Date('11/18/2021').toLocaleDateString(),
+					type: 'Outcome',
 				},
 				{
-					id:3,
-					title:'IFood',
-					amount:100,
-					category:'Alimentação',
-					date: '23/11/2021',
-					type:'Outcome'
+					title: 'IFood',
+					amount: 100,
+					category: 'Alimentação',
+					date: new Date('11/23/2021').toLocaleDateString(),
+					type: 'Outcome',
 				},
 				{
-					id:4,
-					title:'DtMoeny',
-					amount:60,
-					category:'Investimentos',
-					date: '23/11/2021',
-					type:'Outcome'
-				}
-			]
-		})
+					title: 'DtMoeny',
+					amount: 60,
+					category: 'Investimentos',
+					date: new Date('11/23/2021').toLocaleDateString(),
+					type: 'Outcome',
+				},
+			],
+		});
 	},
 
-	routes(){
+	routes() {
 		this.namespace = 'api';
 
-		this.get('/transactions', ()=>{
-			return this.schema.all('transaction')
-		})
-      }
-  })
+		this.get('/transactions', () => {
+			return this.schema.all('transaction');
+		});
+
+		this.post('/transactions', (schema, request) => {
+			const data = JSON.parse(request.requestBody);
+			console.log(data);
+
+			return schema.create('transaction', data);
+		});
+	},
+});
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+	<React.StrictMode>
+		<App />
+	</React.StrictMode>,
+	document.getElementById('root')
 );

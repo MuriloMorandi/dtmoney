@@ -5,6 +5,7 @@ import Modal from 'react-modal';
 import { Dashboard } from 'Components/Dashboard/Index';
 import { Header } from 'Components/Header/Index';
 import { NewTransactionModal } from 'Components/NewTransactionModal/Index';
+import { TransactionsProvider } from 'Context/TransactionsContext';
 
 Modal.setAppElement('#root');
 
@@ -17,17 +18,21 @@ export function App() {
 
 	return (
 		<>
-			<Header
-				fnHandleStateNewTransactionModal={
-					handleStateNewTransactionModal
-				}
-			/>
-			<Dashboard />
-			<GlobalStyle />
-			<NewTransactionModal
-				isNewTransactionsModal={isNewTransactionsModal}
-				handleStateNewTransactionModal={handleStateNewTransactionModal}
-			/>
+			<TransactionsProvider>
+				<GlobalStyle />
+				<Header
+					fnHandleStateNewTransactionModal={
+						handleStateNewTransactionModal
+					}
+				/>
+				<Dashboard />
+				<NewTransactionModal
+					isNewTransactionsModal={isNewTransactionsModal}
+					handleStateNewTransactionModal={
+						handleStateNewTransactionModal
+					}
+				/>
+			</TransactionsProvider>
 		</>
 	);
 }

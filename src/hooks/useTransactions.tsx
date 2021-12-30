@@ -1,4 +1,10 @@
-import { createContext, ReactNode, useEffect, useState } from 'react';
+import {
+	createContext,
+	ReactNode,
+	useContext,
+	useEffect,
+	useState,
+} from 'react';
 import { api } from 'services/api';
 
 interface TypeTransactions {
@@ -40,7 +46,6 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
 			date: dateNow,
 		});
 		const { transaction } = response.data;
-		console.log(transaction);
 
 		setTransactions([...Transactions, transaction]);
 	}
@@ -52,4 +57,10 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
 			{children}
 		</TransactionsContext.Provider>
 	);
+}
+
+export function useTransactions() {
+	const context = useContext(TransactionsContext);
+
+	return context;
 }

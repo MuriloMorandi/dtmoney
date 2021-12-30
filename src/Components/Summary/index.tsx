@@ -1,10 +1,9 @@
 import { Card } from 'Components/Card';
-import { TransactionsContext } from 'Context/TransactionsContext';
-import { useContext } from 'react';
+import { useTransactions } from 'hooks/useTransactions';
 import { Container } from './styles';
 
 export function Summary() {
-	const { Transactions } = useContext(TransactionsContext);
+	const { Transactions } = useTransactions();
 
 	const summary = Transactions.reduce(
 		(acc, transactions) => {

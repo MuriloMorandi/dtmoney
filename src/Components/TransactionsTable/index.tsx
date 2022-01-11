@@ -1,4 +1,3 @@
-import { useContext } from 'react';
 import { TransactionsCard } from 'Components/TransactionsCard';
 import { Container, Table } from './styles';
 import { useTransactions } from 'hooks/useTransactions';
